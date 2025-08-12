@@ -8,7 +8,7 @@ lang: ru
 timezone: Europe/Moscow
 
 # GitHub Pages настройки
-url: "https://username.github.io"  # Замените username на ваш GitHub username
+url: "https://malordin.github.io"  # Замените username на ваш GitHub username
 baseurl: "/rust-raid-calculator"   # Замените на имя вашего репозитория, если оно отличается
 
 # Плагины Jekyll (GitHub Pages поддерживает эти плагины автоматически)
@@ -35,12 +35,12 @@ include:
   - .htaccess
 
 # Настройки для SEO
-twitter:
-  username: # ваш Twitter (опционально)
-  card: summary_large_image
+# twitter:
+#   username: # ваш Twitter (опционально)
+#   card: summary_large_image
 
-facebook:
-  app_id: # ваш Facebook App ID (опционально)
+# facebook:
+#   app_id: # ваш Facebook App ID (опционально)
 
 social:
   name: Rust Raid Calculator

@@ -22,27 +22,7 @@ const raidableObjects = {
         image: 'img_raidable/door.hinged.toptier.webp',
         material: 'armored'
     },
-    'door.double.hinged.wood': {
-        name: 'Двойная деревянная дверь',
-        category: 'doors',
-        health: 400,
-        image: 'img_raidable/door.double.hinged.wood.webp',
-        material: 'wood'
-    },
-    'door.double.hinged.metal': {
-        name: 'Двойная металлическая дверь',
-        category: 'doors',
-        health: 500,
-        image: 'img_raidable/door.double.hinged.metal.webp',
-        material: 'metal'
-    },
-    'door.double.hinged.toptier': {
-        name: 'Двойная бронированная дверь',
-        category: 'doors',
-        health: 1600,
-        image: 'img_raidable/door.double.hinged.toptier.webp',
-        material: 'armored'
-    },
+
 
     // Стены
     'wall.wood': {
@@ -215,25 +195,35 @@ const raidTools = {
         }
     },
     'explosive.satchel': {
-        name: 'Связка гранат',
+        name: 'Связка бобовых гранат',
         category: 'explosives',
         workbench: 1,
         damage: 475,
         image: 'img_raid/explosive.satchel.webp',
         resources: {
-            'rope': 1,
-            'grenade.beancan': 4
+            'grenade.beancan': 4,
+            'stash.small': 1,
+            'rope': 1
         }
     },
     'grenade.beancan': {
         name: 'Бобовая граната',
         category: 'explosives',
         workbench: 1,
-        damage: 60,
+        damageMap: {
+            'wall.wood': 83.33, // 3 бобовых для разрушения
+            'wall.stone': 50, // 10 бобовых для разрушения
+            'wall.metal': 43.48, // 23 бобовых для разрушения
+            'wall.toptier': 43.48, // 46 бобовых для разрушения
+            'door.hinged.wood': 100, // 2 бобовых для разрушения
+            'door.hinged.metal': 62.5, // 4 бобовых для разрушения
+            'wall.frame.garagedoor': 55.56, // 9 бобовых для разрушения
+            'door.hinged.toptier': 53.33 // 15 бобовых для разрушения
+        },
         image: 'img_raid/grenade.beancan.webp',
         resources: {
-            'explosive.gunpowder': 20,
-            'metal.fragments': 60
+            'explosive.gunpowder': 10,
+            'metal.fragments': 15
         }
     },
 
@@ -340,12 +330,10 @@ const raidTools = {
         workbench: 2,
         damageMap: {
             'door.hinged.wood': 200, // 1 удар
-            'door.double.hinged.wood': 400, // 1 удар
             'wall.wood': 90, // 3 удара при 250 HP
             'floor.wood': 90, // 3 удара при 250 HP
             'roof.wood': 90, // 3 удара при 250 HP
             'door.hinged.metal': 80, // 4 удара при 250 HP + 50 HP
-            'door.double.hinged.metal': 80, // 7 ударов при 500 HP
             'cupboard.tool': 1000 // мгновенно уничтожает TC
         },
         image: 'img_raid/batteringram.webp',
@@ -493,13 +481,21 @@ const resources = {
         name: 'Порох',
         image: 'img_resources/charcoal.webp', // заглушка
         recipe: {
-            'sulfur': 30,
-            'charcoal': 20
+            'sulfur': 12,
+            'charcoal': 18
         }
     },
     'metal.refined': {
         name: 'Метал высокого качества (МВК)',
         image: 'img_resources/metal.refined.webp'
+    },
+    'stash.small': {
+        name: 'Маленький тайник',
+        image: 'img_resources/stash.small.webp',
+        recipe: {
+            'cloth': 10,
+            'metal.fragments': 20
+        }
     }
 };
 
@@ -554,6 +550,8 @@ function getBestDamageForMaterial(material, strategy, targetId) {
                 isCompatible = true; // молоток по металлическим дверям
             } else if (tool.speciality === 'doors' && targetId.includes('door')) {
                 isCompatible = true; // таран по любым дверям
+            } else if (tool.damageMap && tool.damageMap[targetId]) {
+                isCompatible = true; // инструмент имеет специальный урон для этой цели
             }
             
             if (!isCompatible) {

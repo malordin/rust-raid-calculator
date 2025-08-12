@@ -52,15 +52,6 @@ function initializeEventListeners() {
         });
     });
 
-    // Кнопка расчета
-    document.getElementById('calculate-btn').addEventListener('click', function() {
-        if (currentMode === 'target') {
-            calculateTargetRaid();
-        } else {
-            showToolsModal();
-        }
-    });
-
     // Кнопка сброса
     document.getElementById('reset-btn').addEventListener('click', function() {
         resetAll();
@@ -97,16 +88,13 @@ function switchMode(mode) {
 function updateModeInterface() {
     const leftPanel = document.querySelector('.left-panel h3');
     const centerPanel = document.querySelector('.center-panel h3');
-    const calculateBtn = document.getElementById('calculate-btn');
 
     if (currentMode === 'target') {
         leftPanel.textContent = 'Выберите цели для рейда:';
         centerPanel.textContent = 'Выбранные цели:';
-        calculateBtn.innerHTML = '<i class="fas fa-calculator"></i> Рассчитать рейд';
     } else {
         leftPanel.textContent = 'Выберите цели для рейда:';
         centerPanel.textContent = 'Выбранные цели:';
-        calculateBtn.innerHTML = '<i class="fas fa-tools"></i> Выбрать инструменты';
     }
 }
 
@@ -304,16 +292,7 @@ function renderSelectedTargets() {
     });
 }
 
-// Расчет рейда для режима "что рейдить"
-function calculateTargetRaid() {
-    if (selectedTargets.length === 0) {
-        showNotification('Выберите цели для рейда', 'warning');
-        return;
-    }
 
-    const result = calculateRaid(selectedTargets, currentStrategy);
-    displayResults(result);
-}
 
 // Отображение результатов
 function displayResults(result) {
@@ -403,7 +382,8 @@ function displayResults(result) {
 // Обновление результатов
 function updateResults() {
     if (selectedTargets.length > 0) {
-        calculateTargetRaid();
+        const result = calculateRaid(selectedTargets, currentStrategy);
+        displayResults(result);
     } else {
         const container = document.getElementById('results-section');
         container.innerHTML = `
@@ -477,17 +457,7 @@ function selectTool(toolId) {
     showNotification(`Выбран: ${raidTools[toolId].name}`, 'info');
 }
 
-// Показ модального окна с инструментами
-function showToolsModal() {
-    if (selectedTargets.length === 0) {
-        showNotification('Сначала выберите цели для рейда', 'warning');
-        return;
-    }
 
-    const modal = document.getElementById('raid-tools-modal');
-    modal.classList.add('active');
-    renderToolsGrid();
-}
 
 // Закрытие модального окна
 function closeModal() {

@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rust Raid Calculator</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <h1 class="title">
+                <i class="fas fa-bomb"></i>
+                Rust Raid Calculator
+            </h1>
+            <p class="subtitle">Планируйте свои рейды эффективно</p>
+        </header>
+
+        <!-- Режимы работы -->
+        <div class="mode-selector">
+            <button class="mode-btn active" data-mode="target">
+                <i class="fas fa-crosshairs"></i>
+                Что рейдить
+            </button>
+            <button class="mode-btn" data-mode="inventory">
+                <i class="fas fa-toolbox"></i>
+                Чем рейдить
+            </button>
+        </div>
+
+        <!-- Стратегии рейда -->
+        <div class="strategy-selector">
+            <h3>Стратегия рейда:</h3>
+            <div class="strategy-buttons">
+                <button class="strategy-btn active" data-strategy="eco">
+                    <i class="fas fa-leaf"></i>
+                    ECO рейд
+                </button>
+                <button class="strategy-btn" data-strategy="t1">
+                    <i class="fas fa-hammer"></i>
+                    Верстак T1
+                </button>
+                <button class="strategy-btn" data-strategy="t2">
+                    <i class="fas fa-cog"></i>
+                    Верстак T2
+                </button>
+                <button class="strategy-btn" data-strategy="t3">
+                    <i class="fas fa-rocket"></i>
+                    Верстак T3
+                </button>
+            </div>
+        </div>
+
+        <div class="main-content">
+            <!-- Левая панель - выбор целей -->
+            <div class="left-panel">
+                <h3>Выберите цели для рейда:</h3>
+                
+                <!-- Поиск и фильтры -->
+                <div class="search-section">
+                    <div class="search-box">
+                        <i class="fas fa-search"></i>
+                        <input type="text" id="search-targets" placeholder="Поиск объектов...">
+                    </div>
+                    
+                    <div class="filter-buttons">
+                        <button class="filter-btn active" data-category="all">Все</button>
+                        <button class="filter-btn" data-category="doors">Двери</button>
+                        <button class="filter-btn" data-category="walls">Стены</button>
+                        <button class="filter-btn" data-category="floors">Полы</button>
+                        <button class="filter-btn" data-category="roofs">Потолки</button>
+                        <button class="filter-btn" data-category="structures">Постройки</button>
+                    </div>
+                </div>
+
+                <!-- Список целей -->
+                <div class="targets-grid" id="targets-grid">
+                    <!-- Будет заполняться через JavaScript -->
+                </div>
+            </div>
+
+            <!-- Центральная панель - выбранные цели -->
+            <div class="center-panel">
+                <h3>Выбранные цели:</h3>
+                <div class="selected-targets" id="selected-targets">
+                    <div class="empty-state">
+                        <i class="fas fa-target"></i>
+                        <p>Выберите цели для рейда</p>
+                    </div>
+                </div>
+                
+                <div class="action-buttons">
+                    <button class="calculate-btn" id="calculate-btn">
+                        <i class="fas fa-calculator"></i>
+                        Рассчитать рейд
+                    </button>
+                    <button class="reset-btn" id="reset-btn">
+                        <i class="fas fa-trash"></i>
+                        Сбросить всё
+                    </button>
+                </div>
+            </div>
+
+            <!-- Правая панель - результаты -->
+            <div class="right-panel">
+                <h3>Результат расчета:</h3>
+                <div class="results-section" id="results-section">
+                    <div class="empty-state">
+                        <i class="fas fa-chart-bar"></i>
+                        <p>Результаты появятся после расчета</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Модальное окно для выбора инструментов -->
+        <div class="modal" id="raid-tools-modal">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3>Выберите инструменты для рейда</h3>
+                    <button class="close-btn" id="close-modal">
+                        <i class="fas fa-times"></i>
+                    </button>
+                </div>
+                
+                <div class="modal-body">
+                    <div class="tools-filter">
+                        <button class="filter-btn active" data-tool-category="all">Все</button>
+                        <button class="filter-btn" data-tool-category="explosives">Взрывчатка</button>
+                        <button class="filter-btn" data-tool-category="melee">Ближний бой</button>
+                        <button class="filter-btn" data-tool-category="tools">Инструменты</button>
+                        <button class="filter-btn" data-tool-category="ammo">Боеприпасы</button>
+                    </div>
+                    
+                    <div class="tools-grid" id="tools-grid">
+                        <!-- Будет заполняться через JavaScript -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="data.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>

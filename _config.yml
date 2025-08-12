@@ -1,0 +1,54 @@
+# Настройки GitHub Pages для Rust Raid Calculator
+title: "Rust Raid Calculator"
+description: "Профессиональный калькулятор для планирования рейдов в игре Rust. Определяет оптимальные стратегии атаки и рассчитывает необходимые ресурсы."
+
+# Информация о сайте
+author: "Rust Community"
+lang: ru
+timezone: Europe/Moscow
+
+# GitHub Pages настройки
+url: "https://username.github.io"  # Замените username на ваш GitHub username
+baseurl: "/rust-raid-calculator"   # Замените на имя вашего репозитория, если оно отличается
+
+# Плагины Jekyll (GitHub Pages поддерживает эти плагины автоматически)
+plugins:
+  - jekyll-feed
+  - jekyll-sitemap
+  - jekyll-seo-tag
+
+# Настройки Jekyll
+markdown: kramdown
+highlighter: rouge
+incremental: false
+
+# Исключить файлы из сборки
+exclude:
+  - README.md
+  - debug/
+  - .gitignore
+  - .git/
+
+# Включить файлы в сборку
+include:
+  - _pages
+  - .htaccess
+
+# Настройки для SEO
+twitter:
+  username: # ваш Twitter (опционально)
+  card: summary_large_image
+
+facebook:
+  app_id: # ваш Facebook App ID (опционально)
+
+social:
+  name: Rust Raid Calculator
+  links:
+    - https://github.com/username/rust-raid-calculator  # Замените на ваш GitHub
+
+# Дополнительные настройки
+future: false
+unpublished: false
+safe: true
+lsi: false
